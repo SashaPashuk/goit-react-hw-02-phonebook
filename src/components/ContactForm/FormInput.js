@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
 import s from './Form.module.scss';
+import { v4 as uuidv4 } from 'uuid';
 
 class Form extends Component {
   state = {
-    contacts: [],
     name: '',
     number: '',
   };
 
-  handleChange = e => {
+  handleChangeFormFields = e => {
     const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.reset();
+    const { name, number } = this.state;
+    if (name.length > 0 && number.length > 0) {
+      this.props.onSubmit({
+        id: uuidv4(),
+        ...this.state,
+      });
+      this.reset();
+    } else {
+      alert('Write all fields');
+    }
   };
 
   reset = () => {
@@ -34,7 +42,7 @@ class Form extends Component {
               type="text"
               name="name"
               value={this.state.name}
-              onChange={this.handleChange}
+              onChange={this.handleChangeFormFields}
             />
           </label>
           <label>
@@ -44,7 +52,7 @@ class Form extends Component {
               type="text"
               name="number"
               value={this.state.number}
-              onChange={this.handleChange}
+              onChange={this.handleChangeFormFields}
             />
           </label>
           <button type="submit">Add contact</button>
