@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from './components/ContactForm/FormInput';
-import SaveContacns from './components/ContacnList/SaveContacts';
+import ContactsLIst from './components/ContacnList/SaveContacts';
 
 class App extends Component {
   state = {
@@ -43,7 +43,7 @@ class App extends Component {
     return (
       <>
         <Form onSubmit={this.formSubmitHandler} />
-        <SaveContacns
+        <ContactsLIst
           contacts={visibleContacts}
           filterField={this.state.filter}
           handleChangeFilterField={this.handleChangeFilterField}
